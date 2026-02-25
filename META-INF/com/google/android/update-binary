@@ -6,15 +6,8 @@
 
 umask 022
 
-# echo before loading util_functions
+# Minimal ui_print fallback before util_functions load
 ui_print() { echo "$1"; }
-
-require_supported_root() {
-  ui_print "********************************************"
-  ui_print " Install from Magisk v20.4+ or KernelSU app "
-  ui_print "********************************************"
-  exit 1
-}
 
 #########################
 # Load util_functions.sh
@@ -25,18 +18,15 @@ ZIPFILE=$3
 
 mount /data 2>/dev/null
 
-# KernelSU/Sukisu
-if [ -f /data/adb/ksu/bin/ksud ]; then
-  /data/adb/ksu/bin/ksud module install "$ZIPFILE"
-  exit $?
-fi
-
-# Magisk
+# When KernelSU/Sukisu calls this script it has already injected all util
+# functions (install_module, ui_print, set_perm, abort …) into the shell
+# environment — do NOT call ksud again or it recurses.
+# We only need to source util_functions for Magisk where they live on disk.
 if [ -f /data/adb/magisk/util_functions.sh ]; then
   . /data/adb/magisk/util_functions.sh
-  [ "$MAGISK_VER_CODE" -lt 20400 ] && require_supported_root
-  install_module
-  exit 0
+  [ "$MAGISK_VER_CODE" -lt 20400 ] && abort "Please install Magisk v20.4+"
 fi
 
-require_supported_root
+# install_module is available in both KernelSU (injected) and Magisk (sourced)
+install_module
+exit 0

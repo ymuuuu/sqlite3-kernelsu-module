@@ -20,10 +20,15 @@ if [ -z "$selected_arch" ]; then
 	selected_arch="$(resolve_arch_suffix "$(uname -m)")"
 fi
 
-if [ -z "$selected_arch" ] || [ ! -f "$MODPATH$bindir/sqlite3.$selected_arch" ]; then
-	ui_print "[!] Could not determine a compatible sqlite3 binary for this device"
-	ui_print "[!] ARCH='$ARCH' ABI='$(getprop ro.product.cpu.abi)' UNAME='$(uname -m)'"
-	abort "Installation aborted"
+if [ -z "$selected_arch" ]; then
+	ui_print "[!] Unrecognised CPU architecture — cannot select sqlite3 binary"
+	ui_print "[!] ARCH='$ARCH'  ABI='$(getprop ro.product.cpu.abi)'  UNAME='$(uname -m)'"
+	abort "Unsupported architecture"
+fi
+
+if [ ! -f "$MODPATH$bindir/sqlite3.$selected_arch" ]; then
+	ui_print "[!] Binary sqlite3.$selected_arch not found inside module package"
+	abort "Missing binary for arch: $selected_arch"
 fi
 
 ui_print "[0/3] Keeping necessary binary file: $MODPATH$bindir/sqlite3.$selected_arch"
