@@ -1,3 +1,8 @@
 *.tar.gz
-*.sh
 *.zip
+KERNELSU_MODULE_GUIDE.md
+# exclude build/helper scripts but keep module runtime scripts
+*.sh
+!service.sh
+!uninstall.sh
+!customize.sh

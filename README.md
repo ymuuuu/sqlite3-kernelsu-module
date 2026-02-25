@@ -1,5 +1,11 @@
 # SQLite3 KernelSU module for arm, arm64, x86 and x64
 
+## Requirements
+
+> **KernelSU/Sukisu users must install [`meta-overlayfs`](https://github.com/KernelSU-Modules-Repo/meta-overlayfs/releases) first.**
+>
+> KernelSU requires a metamodule to process module installs. Install [meta-overlayfs](https://github.com/KernelSU-Modules-Repo/meta-overlayfs/releases) and reboot, then install this module and reboot again. This module uses `skip_mount` so no OverlayFS image is built — the binary is deployed directly to `/data/adb/ksu/bin/` via `service.sh`.
+
 ## Description
 
 This KernelSU/Sukisu module provides a statically linked and stripped `sqlite3` binary for **arm64-v8a**, **armeabi-v7a**, **x86** and **x86_64** devices.

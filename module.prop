@@ -2,5 +2,5 @@ id=sqlite3_kernelsu
 name=SQLite3 for KernelSU (arm, arm64, x86, x64)
 version=v3.51.1
 versionCode=20260106
-author=Fork of Rojen Zaman's sqlite3-magisk-module
+author=ymuu (fork of rojenzaman/sqlite3-magisk-module)
 description=KernelSU/Sukisu module providing a statically linked sqlite3 binary for arm, arm64, x86 and x64 devices
