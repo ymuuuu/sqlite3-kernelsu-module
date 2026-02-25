@@ -6,8 +6,8 @@ VERSIONCODE = 20260106
 default: module.prop system/bin zip
 
 zip:
-	rm -f SQLite-$(VERSION)-for-magisk.multi-arch.zip
-	zip -9 -r SQLite-$(VERSION)-for-magisk.multi-arch.zip $(ZIP_FILES)
+	rm -f SQLite-$(VERSION)-for-kernelsu.multi-arch.zip
+	zip -9 -r SQLite-$(VERSION)-for-kernelsu.multi-arch.zip $(ZIP_FILES)
 
 module.prop:
 	sed -i 's/version=.*$$/version=$(VERSION)/' module.prop

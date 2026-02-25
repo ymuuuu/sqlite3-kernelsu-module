@@ -9,10 +9,10 @@ umask 022
 # echo before loading util_functions
 ui_print() { echo "$1"; }
 
-require_new_magisk() {
-  ui_print "*******************************"
-  ui_print " Please install Magisk v20.4+! "
-  ui_print "*******************************"
+require_supported_root() {
+  ui_print "********************************************"
+  ui_print " Install from Magisk v20.4+ or KernelSU app "
+  ui_print "********************************************"
   exit 1
 }
 
@@ -25,9 +25,18 @@ ZIPFILE=$3
 
 mount /data 2>/dev/null
 
-[ -f /data/adb/magisk/util_functions.sh ] || require_new_magisk
-. /data/adb/magisk/util_functions.sh
-[ $MAGISK_VER_CODE -lt 20400 ] && require_new_magisk
+# KernelSU/Sukisu
+if [ -f /data/adb/ksu/bin/ksud ]; then
+  /data/adb/ksu/bin/ksud module install "$ZIPFILE"
+  exit $?
+fi
 
-install_module
-exit 0
+# Magisk
+if [ -f /data/adb/magisk/util_functions.sh ]; then
+  . /data/adb/magisk/util_functions.sh
+  [ "$MAGISK_VER_CODE" -lt 20400 ] && require_supported_root
+  install_module
+  exit 0
+fi
+
+require_supported_root

@@ -1,5 +1,11 @@
 ## Changelog
 
+**2026-02-25**: KernelSU/Sukisu fork
+
+- Converted installer flow to support KernelSU/Sukisu.
+- Renamed release artifact to KernelSU naming.
+- Added explicit attribution to the original author (Rojen Zaman).
+
 **2026-01-06**: v3.51.1 (_20260106_)
 
 - Updated to SQLite v3.51.1.
